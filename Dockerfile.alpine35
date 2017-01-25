@@ -1,0 +1,11 @@
+FROM mgage/docker-ansible:alpine35_latest
+USER root
+RUN mkdir /runner
+ADD runner.sh /runner/runner.sh
+WORKDIR /runner
+RUN apk --update add bash jq &&\
+    pip install prettytable &&\
+    chmod 700 runner.sh &&\
+    rm -rf /var/cache/apk/* ~/.cache/pip/*
+
+CMD ./runner.sh

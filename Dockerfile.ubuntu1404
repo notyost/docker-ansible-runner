@@ -1,0 +1,10 @@
+FROM mgage/docker-ansible:ubuntu_latest
+RUN mkdir /runner
+WORKDIR /runner
+ADD runner.sh /runner/runner.sh
+RUN apt-get update &&\
+    apt-get install -y jq &&\
+    pip install prettytable &&\
+    chmod 700 /runner/runner.sh &&\
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+CMD ./runner.sh
